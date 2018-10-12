@@ -1,0 +1,8 @@
+{
+  "name": "Simple Bible",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "de91b83e"
+}
