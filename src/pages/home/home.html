@@ -1,14 +1,37 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
+    <ion-title ion-grid>
+      <ion-row>
+        <ion-select ion-col col-3 [(ngModel)]="currentTranslation" interface="popover">
+          <ion-label>{{currentTranslation}}</ion-label>
+          <ion-option *ngFor="let translation of getTranslations()">{{translation}}</ion-option>
+        </ion-select>
+
+        <ion-select ion-col col-4 [(ngModel)]="currentBook" interface="action-sheet">
+          <ion-label>{{currentBook}}</ion-label>
+          <ion-option *ngFor="let book of translations[currentTranslation].books">{{book.name}}</ion-option>
+        </ion-select>
+
+        <ion-select ion-col col-2 [(ngModel)]="currentChapter" interface="action-sheet">
+          <ion-label>{{currentChapter}}</ion-label>
+          <ion-option *ngFor="let chapterNum of chaptersNumbers(currentBook)" value="{{chapterNum}}">{{chapterNum + 1}}</ion-option>
+        </ion-select>
+
+        <ion-col col-1>
+          <button ion-fab (click)="switchNightMode()">
+            <ion-icon [name]="nightMode ? 'sunny' : 'moon'"></ion-icon>
+          </button>
+
+        </ion-col>
+      </ion-row>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content [class]="nightMode ? '' : 'nightMode'" padding>
+  {{currentTranslation}}
+  {{currentBook}}
+  {{currentChapter}}
+  <!-- {{getBook(currentBook)}} -->
+  <p *ngFor="let verse of getChapter(currentBook, currentChapter)"><b>{{index}}</b> {{verse}}</p>
 </ion-content>
